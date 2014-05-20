@@ -22,13 +22,13 @@ public class Huffman{
                 }
             }
         }
-	for(int i=0; i<arrnodos.length;i++){
-	    try{
-		System.out.println("Caracter:\t"+arrnodos[i].getCaracter());
-		System.out.println("Frecuencia:\t"+arrnodos[i].getFrecuencia());
-	    }catch(Exception ex){
-		continue;
-	    }
-	}
+        for (Nodo arrnodo : arrnodos) {
+            try {
+                System.out.println("Caracter:\t" + arrnodo.getCaracter());
+                System.out.println("Frecuencia:\t" + arrnodo.getFrecuencia());
+            }catch(Exception ex){
+                continue;
+            }
+        }
     }
 }
