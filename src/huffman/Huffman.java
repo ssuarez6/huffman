@@ -5,9 +5,9 @@ public class Huffman{
     public static void main(String[] args){
 	Scanner read = new Scanner(System.in);
 	String in = read.next();
-	Nodo[] arrnodos = new Nodo[in.length()];
+	Arbol[] arrnodos = new Arbol[in.length()];
 	for(int i=0; i<in.length();i++){
-	    arrnodos[i] = new Nodo(in.charAt(i), 1);
+	    arrnodos[i] = new Arbol(in.charAt(i), 1);
 	}
 	for(int i=0; i<arrnodos.length-1;i++){
             for(int j=i+1; j<arrnodos.length;j++){
@@ -23,9 +23,9 @@ public class Huffman{
                 }
             }
         }
-        ArrayList<Nodo> an = new ArrayList<Nodo>();
+        ArrayList<Arbol> an = new ArrayList<Arbol>();
         int t = 0;
-        for (Nodo arrnodo : arrnodos) {
+        for (Arbol arrnodo : arrnodos) {
             if(arrnodo != null) {
                 an.add(arrnodo);
             }else{
@@ -33,9 +33,9 @@ public class Huffman{
             }
         }
         Object[] tmp = an.toArray();
-        Nodo[] arr2 = new Nodo[tmp.length];
+        Arbol[] arr2 = new Arbol[tmp.length];
         for(int i=0;i<tmp.length;i++){
-            arr2[i] = (Nodo)tmp[i];
+            arr2[i] = (Arbol)tmp[i];
             System.out.println("Caracter: "+arr2[i].getCaracter()+" Frecuencia:  "+arr2[i].getFrecuencia());
         }
     }
