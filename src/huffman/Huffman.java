@@ -1,5 +1,6 @@
 package huffman;
 import java.util.Scanner;
+import java.util.ArrayList;
 public class Huffman{
     public static void main(String[] args){
 	Scanner read = new Scanner(System.in);
@@ -22,13 +23,20 @@ public class Huffman{
                 }
             }
         }
+        ArrayList<Nodo> an = new ArrayList<Nodo>();
+        int t = 0;
         for (Nodo arrnodo : arrnodos) {
-            try {
-                System.out.println("Caracter:\t" + arrnodo.getCaracter());
-                System.out.println("Frecuencia:\t" + arrnodo.getFrecuencia());
-            }catch(Exception ex){
+            if(arrnodo != null) {
+                an.add(arrnodo);
+            }else{
                 continue;
             }
+        }
+        Object[] tmp = an.toArray();
+        Nodo[] arr2 = new Nodo[tmp.length];
+        for(int i=0;i<tmp.length;i++){
+            arr2[i] = (Nodo)tmp[i];
+            System.out.println("Caracter: "+arr2[i].getCaracter()+" Frecuencia:  "+arr2[i].getFrecuencia());
         }
     }
 }
