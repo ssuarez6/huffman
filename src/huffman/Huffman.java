@@ -55,28 +55,43 @@ public class Huffman{
      * @return un arbol unico con los caracteres como hojas
      */
     private static Arbol combinate(Arbol[] caracs){
-        int minor = caracs[0].getFrecuencia();
-        Arbol min = caracs[0];
-        int ac_minor = 0;
-        for(int i=0; i<caracs.length; i++){ //hallando el primer menor
-            int ac = caracs[i].getFrecuencia();
-            if(ac < minor){
-                minor = ac;
-                ac_minor = i;
-                min = caracs[i];
+        if(caracs.length == 1) return caracs[0];
+        else{
+            int minor = caracs[0].getFrecuencia();
+            Arbol min = caracs[0];
+            int ac_minor = 0;
+            for(int i=0; i<caracs.length; i++){ //hallando el primer menor
+                int ac = caracs[i].getFrecuencia();
+                if(ac < minor){
+                    minor = ac;
+                    ac_minor = i;
+                    min = caracs[i];
+                }
             }
-        }
-        int minor2 = caracs[1].getFrecuencia();
-        Arbol min2 = caracs[1];
-        for(int i=0;i<caracs.length;i++){ //hallando el segundo menor
-            int ac = caracs[i].getFrecuencia();
-            if(i!=ac_minor && ac<minor2 ){
-                minor2 = ac;
-                min2 = caracs[i];
+            int minor2 = caracs[1].getFrecuencia();
+            Arbol min2 = caracs[1];
+            int ac_minor2 = 1;
+            for(int i=0;i<caracs.length;i++){ //hallando el segundo menor
+                int ac = caracs[i].getFrecuencia();
+                if(i!=ac_minor && ac<minor2 ){
+                    minor2 = ac;
+                    min2 = caracs[i];
+                    ac_minor2 = i;
+                }
             }
+            Arbol tmp = caracs[ac_minor].split(caracs[ac_minor2]);
+            caracs[ac_minor] = null;
+            caracs[ac_minor2] = null;
+            Arbol[] out = new Arbol[caracs.length-1];
+            int cont = 0;
+            for (Arbol carac : caracs) {
+                if (carac != caracs[ac_minor] && carac != caracs[ac_minor2]) {
+                    out[cont] = carac;
+                    cont++;
+                }
+            }
+            out[out.length-1] = tmp;
+            return combinate(out);
         }
-        Arbol mix;
-        mix = min.split(min2);
-        return mix;
     }
 }
