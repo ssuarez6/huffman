@@ -5,8 +5,7 @@ public class Arbol{
     private Arbol derecho;
     private Arbol izquierdo;
     private Arbol padre;
-
-    
+    private String codigo;
     private int numIzq, numDer;//izq: 0 der: 1
     /**
      *Constructor de nodo
@@ -120,5 +119,12 @@ public class Arbol{
             n.setPadre(raiz);
         }
         return raiz;
+    }
+    /**
+     * Método para recorrer el árbol
+     * @return el string con el codigo para una palabra
+     */
+    public String recorrer(){
+        return codigo;
     }
 }
