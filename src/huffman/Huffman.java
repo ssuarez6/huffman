@@ -1,19 +1,12 @@
 package huffman;
-import java.util.Scanner;
 import java.util.ArrayList;
 public class Huffman{
-    public static void main(String[] args){
-	Scanner read = new Scanner(System.in);
-	String in = read.next();
-	Arbol[] nodos;
-        nodos = process(in);
-    }
     /**
-     * Metodo process, solo para esta clase y único para el main
-     * @param in el string con la palabra
-     * @return el arreglo de arboles para unir
+     * Metodo para dividir el string en arboles
+     * @param in El string con la palabra
+     * @return El arreglo de arboles, despues se unen
      */
-    private static Arbol[] process(String in){
+    public Arbol[] process(String in){
         Arbol[] arrnodos = new Arbol[in.length()];
 	for(int i=0; i<in.length();i++){
 	    arrnodos[i] = new Arbol(in.charAt(i)+"", 1);
@@ -24,7 +17,8 @@ public class Huffman{
                     String actual = arrnodos[i].getCaracter();
                     String tmp = arrnodos[j].getCaracter();
                     if(actual == null ? tmp == null : actual.equals(tmp)){
-                        arrnodos[i].setFrecuencia(arrnodos[i].getFrecuencia()+1);
+                        int actmp = arrnodos[i].getFrecuencia()+1;
+                        arrnodos[i].setFrecuencia(actmp);
                         arrnodos[j] = null;
                     }
                 }catch(Exception ex){
@@ -45,16 +39,15 @@ public class Huffman{
         Arbol[] arr2 = new Arbol[tmp.length];
         for(int i=0;i<tmp.length;i++){
             arr2[i] = (Arbol)tmp[i];
-            System.out.println("Caracter: "+arr2[i].getCaracter()+" Frecuencia:  "+arr2[i].getFrecuencia());
         }
         return arr2;
     }
     /**
-     * método para ir uniendo árboles
+     * Método para generar el árbol general con cada caracter como hoja
      * @param caracs el arreglo de nodos
      * @return un arbol unico con los caracteres como hojas
      */
-    private static Arbol combinate(Arbol[] caracs){
+    public Arbol combinate(Arbol[] caracs){
         if(caracs.length == 1) return caracs[0];
         else{
             int minor = caracs[0].getFrecuencia();
@@ -93,5 +86,17 @@ public class Huffman{
             out[out.length-1] = tmp;
             return combinate(out);
         }
+    }
+    /**
+     * Metodo que utiliza los dos anteriores y devuelve el huffman
+     * @param in String con la entrada
+     * @return un string con el codigo huffman
+     */
+    public String execute(String in){
+        Arbol tmp;
+        Arbol[] arrtmp;
+        arrtmp = this.process(in);
+        tmp = combinate(arrtmp);
+        return tmp.recorrer("",tmp); //primera vez vacio
     }
 }

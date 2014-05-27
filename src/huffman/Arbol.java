@@ -121,10 +121,22 @@ public class Arbol{
         return raiz;
     }
     /**
-     * Método para recorrer el árbol
+     * Método para recorrer el árbol, debe ser recursivo
+     * @param huff el código huffman actual
+     * @param a el árbol para evaluar
      * @return el string con el codigo para una palabra
      */
-    public String recorrer(){
-        return codigo;
+    public String recorrer(String huff, Arbol a){
+        if(a.esHoja()){
+            return huff;
+        }else{
+            if(a.getDerecho()!=null){
+                return recorrer(huff+"1",a.getDerecho());
+            }
+            if(a.getIzquierdo()!=null){
+                return recorrer(huff+"0",a.getIzquierdo());
+            }
+            else return huff; //unreachable
+        }
     }
 }
