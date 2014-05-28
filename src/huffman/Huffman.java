@@ -4,7 +4,7 @@ public class Huffman{
     /**
      * Metodo para dividir el string en arboles
      * @param in El string con la palabra
-     * @return El arreglo de arboles, despues se unen
+     * @return El arreglo de arboles, con cada caracter y su frecuencia
      */
     public Arbol[] process(String in){
         Arbol[] arrnodos = new Arbol[in.length()];
@@ -48,44 +48,45 @@ public class Huffman{
      * @return un arbol unico con los caracteres como hojas
      */
     public Arbol combinate(Arbol[] caracs){
-        if(caracs.length == 1) return caracs[0];
+        if(caracs.length==1) return caracs[0];
         else{
-            int minor = caracs[0].getFrecuencia();
-            Arbol min = caracs[0];
-            int ac_minor = 0;
-            for(int i=0; i<caracs.length; i++){ //hallando el primer menor
-                int ac = caracs[i].getFrecuencia();
-                if(ac < minor){
-                    minor = ac;
-                    ac_minor = i;
-                    min = caracs[i];
-                }
+            ordenar(caracs);
+            Arbol[] tmp = new Arbol[caracs.length-1];
+            int cont=0;
+            for(int i=2;i<caracs.length;i++){
+                tmp[cont] = caracs[i];
+                cont++;
             }
-            int minor2 = caracs[1].getFrecuencia();
-            Arbol min2 = caracs[1];
-            int ac_minor2 = 1;
-            for(int i=0;i<caracs.length;i++){ //hallando el segundo menor
-                int ac = caracs[i].getFrecuencia();
-                if(i!=ac_minor && ac<minor2 ){
-                    minor2 = ac;
-                    min2 = caracs[i];
-                    ac_minor2 = i;
-                }
-            }
-            Arbol tmp = caracs[ac_minor].split(caracs[ac_minor2]);
-            caracs[ac_minor] = null;
-            caracs[ac_minor2] = null;
-            Arbol[] out = new Arbol[caracs.length-1];
-            int cont = 0;
-            for (Arbol carac : caracs) {
-                if (carac != caracs[ac_minor] && carac != caracs[ac_minor2]) {
-                    out[cont] = carac;
-                    cont++;
-                }
-            }
-            out[out.length-1] = tmp;
-            return combinate(out);
+            Arbol raiz;
+            int sumfre = caracs[0].getFrecuencia()+caracs[1].getFrecuencia();
+            raiz = new Arbol("null",sumfre);
+            raiz.setIzquierdo(caracs[0]);
+            raiz.setDerecho(caracs[1]);
+            caracs[0].setPadre(raiz);
+            caracs[1].setPadre(raiz);
+            tmp[tmp.length-1] = raiz;
+            return combinate(tmp);
         }
+    }
+    /**
+     * Ordena un arreglo de arboles por su frecuencia de menor a mayor
+     * @param aa arreglo de arboles
+     */
+    public static void ordenar(Arbol[] aa){
+        try{
+        for(int i=1;i<=aa.length;i++){
+            for(int j=0; j<= aa.length-i;j++){  //bubble sort
+                int ac = aa[j].getFrecuencia();
+                int ac1 = aa[j+1].getFrecuencia();
+                if(ac > ac1){
+                    Arbol aux;
+                    aux = aa[j];
+                    aa[j] = aa[j+1];
+                    aa[j+1] = aux;
+                }
+            }
+        }
+        }catch(Exception ex){}
     }
     /**
      * Metodo que utiliza los dos anteriores y devuelve el huffman
@@ -97,6 +98,16 @@ public class Huffman{
         Arbol[] arrtmp;
         arrtmp = this.process(in);
         tmp = combinate(arrtmp);
-        return tmp.recorrer("",tmp); //primera vez vacio
+        String[] arrcodigos = new String[in.length()];
+        String codigo = "";
+        for(int i=0; i<in.length();i++){
+            try{
+                arrcodigos[i] = tmp.recorrer(in.charAt(i)+"", tmp, "");
+                codigo = codigo + arrcodigos[i];
+            }catch(Exception ex){
+                ex.printStackTrace();
+            }
+        }
+        return codigo;
     }
 }

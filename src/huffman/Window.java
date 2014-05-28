@@ -19,7 +19,7 @@ public class Window extends JFrame implements ActionListener{
         super("Algoritmo de Huffman");
         this.setLayout(null);
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
-        this.setBounds(20,30,200,300);
+        this.setBounds(20,30,300,300);
         this.setResizable(false);
         
         //Btn

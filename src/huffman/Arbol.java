@@ -5,8 +5,6 @@ public class Arbol{
     private Arbol derecho;
     private Arbol izquierdo;
     private Arbol padre;
-    private String codigo;
-    private int numIzq, numDer;//izq: 0 der: 1
     /**
      *Constructor de nodo
      *@param c el caracter del nodo
@@ -122,21 +120,22 @@ public class Arbol{
     }
     /**
      * Método para recorrer el árbol, debe ser recursivo
-     * @param huff el código huffman actual
+     * @param c el caracter a encontrar
      * @param a el árbol para evaluar
+     * @param huff
+     * @throws Exception si el caracter no está en el árbol
      * @return el string con el codigo para una palabra
      */
-    public String recorrer(String huff, Arbol a){
-        if(a.esHoja()){
-            return huff;
+    public String recorrer(String c, Arbol a, String huff) throws Exception{
+        if(a.esHoja() && a.getCaracter().equals(c)) return huff;
+        else if(!a.esHoja()){
+            try{
+                return recorrer(c, a.getIzquierdo(), huff + "0");
+            }catch(Exception ex){
+                return recorrer(c, a.getDerecho(), huff+"1");
+            }
         }else{
-            if(a.getDerecho()!=null){
-                return recorrer(huff+"1",a.getDerecho());
-            }
-            if(a.getIzquierdo()!=null){
-                return recorrer(huff+"0",a.getIzquierdo());
-            }
-            else return huff; //unreachable
+            throw new Exception("Caracter no encontrado");
         }
     }
 }
