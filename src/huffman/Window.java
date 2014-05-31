@@ -9,14 +9,17 @@ import java.awt.event.*;
 import javax.swing.*;
 /**
  *
- * @author santiago
+ * @author santiago, juanfer
  */
 
 public class Window extends JFrame implements ActionListener{
     private final JButton btnin;
     private final JTextField txtin;
     private final Huffman hm = new Huffman();
-    private Interfaz interfaz;
+    
+    /**
+     * Constructor de la interfaz 
+     */
     public Window(){
         super("Algoritmo de Huffman");
         this.setLayout(null);
@@ -47,7 +50,7 @@ public class Window extends JFrame implements ActionListener{
     @Override
     public void actionPerformed(ActionEvent e){
         String[] parametros = new String [0];
-        interfaz.main(parametros);
+        
         if(e.getSource()==btnin){
             String txt = txtin.getText();
             String huffman = hm.execute(txt);
@@ -55,6 +58,10 @@ public class Window extends JFrame implements ActionListener{
             txtin.setText("");           
         }       
     }
+    /**
+     * metodo main de la interfaz
+     * @param args 
+     */
     public static void main(String[] args){
         Window window = new Window();
         window.setVisible(true);

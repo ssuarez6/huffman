@@ -1,5 +1,9 @@
 package huffman;
 import java.util.ArrayList;
+/**
+ * Clase donde tenemos algunos procesos
+ * @author JuanFer, Santiago
+ */
 public class Huffman{
     /**
      * Metodo para dividir el string en arboles

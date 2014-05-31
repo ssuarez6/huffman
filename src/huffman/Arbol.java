@@ -1,4 +1,8 @@
 package huffman;
+/**
+ * Clase donde se crean los arboles
+ * @author JuanFer, Santiago
+ */
 public class Arbol{
     private int f; //frecuencia
     private String c; //el caracter
